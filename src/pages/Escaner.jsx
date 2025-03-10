@@ -7,6 +7,7 @@ function Escaner() {
     <div>
       <h1>Visitas</h1>
       <p>Esta es la página de escaner.</p>
+      <alert>Proxima apertura</alert>
     </div>
   );
 }

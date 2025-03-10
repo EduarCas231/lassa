@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
 
 const Registros = () => {
   const navigate = useNavigate();
@@ -52,15 +52,26 @@ const Registros = () => {
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) {
-        throw new Error('Error al registrar la visita');
-      }
-
-      // Si la visita se registra correctamente, redirige a la lista de visitas
-      navigate('/Visitas');
+      // Si la visita se registra correctamente, muestra la alerta de SweetAlert2
+      Swal.fire({
+        title: 'Visita Registrada',
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+      }).then((result) => {
+        
+        if (result.isConfirmed) {
+          navigate('/Visitas');
+        }
+      });
     } catch (error) {
       console.error('Error:', error);
-      alert('Hubo un error al registrar la visita. Por favor, intenta de nuevo.');
+      // Muestra una alerta de error si algo sale mal
+      Swal.fire({
+        title: 'Error!',
+        text: 'Hubo un error al registrar la visita. Por favor, intenta de nuevo.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+      });
     }
   };
 

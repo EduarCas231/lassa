@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Visita = () => {
   const [visitas, setVisitas] = useState([]); // Estado para almacenar las visitas
@@ -55,10 +56,21 @@ const Visita = () => {
 
       // Actualiza la lista de visitas después de eliminar
       setVisitas(visitas.filter((visita) => visita.id_v !== id));
-      alert('Visita eliminada correctamente');
+      Swal.fire({
+  
+              title: 'Visita eliminada con exito',
+              icon: 'success',
+              confirmButtonText: 'Aceptar',
+            });
+
     } catch (error) {
       console.error('Error:', error);
-      alert('Hubo un error al eliminar la visita. Por favor, intenta de nuevo.');
+      Swal.fire({
+  
+        text: 'No se pudo eliminar la visita',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+      });
     }
   };
 
@@ -90,11 +102,11 @@ const Visita = () => {
   const visitasFiltradas = filtrarVisitas();
 
   if (loading) {
-    return <div>Cargando...</div>; // Muestra un mensaje de carga
+    return <div>Cargando...</div>; 
   }
 
   if (error) {
-    return <div>Error: {error}</div>; // Muestra un mensaje de error
+    return <div>Error: {error}</div>; 
   }
 
   return (
