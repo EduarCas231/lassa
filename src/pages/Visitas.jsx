@@ -18,7 +18,7 @@ const Visita = () => {
   // Función para obtener las visitas desde la API
   const fetchVisitas = async () => {
     try {
-      const response = await fetch('http://3.12.74.141/visitas'); // Cambia la URL si es necesario
+      const response = await fetch('https://3.12.74.141:8000/visitas'); // Cambia la URL si es necesario
       if (!response.ok) {
         throw new Error('Error al obtener los datos');
       }
