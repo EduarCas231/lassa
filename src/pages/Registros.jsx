@@ -44,13 +44,16 @@ const Registros = () => {
 
     try {
       // Envía los datos a la API
-      const response = await fetch('https://3.12.74.141/visitas', {
+      const response = await fetch('http://3.12.74.141/visitas', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
-      });
+        mode: 'cors', // Asegurar que se permite desde otros orígenes
+        credentials: 'same-origin' // Si la API necesita autenticación
+      }).catch(error => console.error("Error en la petición:", error));
+      
 
       // Si la visita se registra correctamente, muestra la alerta de SweetAlert2
       Swal.fire({
