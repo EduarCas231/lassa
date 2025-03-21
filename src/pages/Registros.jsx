@@ -50,7 +50,7 @@ const Registros = () => {
     }
 
     try {
-      const response = await fetch('http://3.138.178.65:8000/visitas', {
+      const response = await fetch('https://3.138.178.65/visitas', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

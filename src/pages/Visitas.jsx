@@ -17,7 +17,7 @@ const Visita = () => {
 
   const fetchVisitas = async () => {
     try {
-      const response = await fetch('http://3.138.178.65:8000/visitas');
+      const response = await fetch('https://3.138.178.65/visitas');
       if (!response.ok) {
         throw new Error('Error al obtener los datos');
       }
@@ -40,7 +40,7 @@ const Visita = () => {
 
   const handleBorrar = async (id) => {
     try {
-      const response = await fetch(`http://3.138.178.65:8000/visitas/${id}`, {
+      const response = await fetch(`https://3.138.178.65/visitas/${id}`, {
         method: 'DELETE',
       });
 
@@ -152,8 +152,8 @@ const Visita = () => {
           {visitasFiltradas.map((visita) => (
             <tr key={visita.id}>
               <td>{visita.nombre}</td>
-              <td>{visita.apellido_paterno}</td>
-              <td>{visita.apellido_materno}</td>
+              <td>{visita.apellidoPaterno}</td>
+              <td>{visita.apellidoMaterno}</td>
               <td>{visita.lugar}</td>
               <td>{visita.hora}</td>
               <td>{visita.dia}</td>
