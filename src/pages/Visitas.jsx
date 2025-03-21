@@ -3,35 +3,33 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const Visita = () => {
-  const [visitas, setVisitas] = useState([]); // Estado para almacenar las visitas
+  const [visitas, setVisitas] = useState([]);
   const [filtro, setFiltro] = useState({
     hora: '',
     dia: '',
     mes: '',
     departamento: '',
   });
-  const [loading, setLoading] = useState(true); // Estado para manejar la carga
-  const [error, setError] = useState(null); // Estado para manejar errores
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
-  // Función para obtener las visitas desde la API
   const fetchVisitas = async () => {
     try {
-      const response = await fetch('https://3.12.74.141/visitas'); // Cambia la URL si es necesario
+      const response = await fetch('http://3.138.178.65:8000/visitas');
       if (!response.ok) {
         throw new Error('Error al obtener los datos');
       }
       const data = await response.json();
-      setVisitas(data); // Actualiza el estado con los datos obtenidos
+      setVisitas(data);
     } catch (error) {
-      setError(error.message); // Maneja el error
+      setError(error.message);
     } finally {
-      setLoading(false); // Finaliza la carga
+      setLoading(false);
     }
   };
 
-  // Llama a fetchVisitas cuando el componente se monta
   useEffect(() => {
     fetchVisitas();
   }, []);
@@ -40,13 +38,9 @@ const Visita = () => {
     navigate('/Registro');
   };
 
-  const handleEditar = (id) => {
-    console.log(`Editar visita con id: ${id}`);
-  };
-
   const handleBorrar = async (id) => {
     try {
-      const response = await fetch(`https://3.12.74.141/visitas/${id}`, {
+      const response = await fetch(`http://3.138.178.65:8000/visitas/${id}`, {
         method: 'DELETE',
       });
 
@@ -54,28 +48,20 @@ const Visita = () => {
         throw new Error('Error al eliminar la visita');
       }
 
-      // Actualiza la lista de visitas después de eliminar
-      setVisitas(visitas.filter((visita) => visita.id_v !== id));
+      setVisitas(visitas.filter((visita) => visita.id !== id));
       Swal.fire({
-  
-              title: 'Visita eliminada con exito',
-              icon: 'success',
-              confirmButtonText: 'Aceptar',
-            });
-
+        title: 'Visita eliminada con éxito',
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+      });
     } catch (error) {
       console.error('Error:', error);
       Swal.fire({
-  
         text: 'No se pudo eliminar la visita',
         icon: 'error',
         confirmButtonText: 'Aceptar',
       });
     }
-  };
-
-  const handleDetalle = (id) => {
-    console.log(`Ver detalle de visita con id: ${id}`);
   };
 
   const handleFiltroChange = (e) => {
@@ -102,11 +88,11 @@ const Visita = () => {
   const visitasFiltradas = filtrarVisitas();
 
   if (loading) {
-    return <div>Cargando...</div>; 
+    return <div>Cargando...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>; 
+    return <div>Error: {error}</div>;
   }
 
   return (
@@ -114,7 +100,6 @@ const Visita = () => {
       <h1>Lista de Visitas</h1>
       <button onClick={handleRegistroVisita}>Registro de Visita</button>
 
-      {/* Formulario de filtrado */}
       <div className="filtro-container">
         <h2>Filtrar Visitas</h2>
         <div className="filtro-form">
@@ -149,7 +134,6 @@ const Visita = () => {
         </div>
       </div>
 
-      {/* Tabla de visitas */}
       <table>
         <thead>
           <tr>
@@ -166,19 +150,17 @@ const Visita = () => {
         </thead>
         <tbody>
           {visitasFiltradas.map((visita) => (
-            <tr key={visita.id_v}>
+            <tr key={visita.id}>
               <td>{visita.nombre}</td>
-              <td>{visita.apellidoPaterno}</td>
-              <td>{visita.apellidoMaterno}</td>
+              <td>{visita.apellido_paterno}</td>
+              <td>{visita.apellido_materno}</td>
               <td>{visita.lugar}</td>
               <td>{visita.hora}</td>
               <td>{visita.dia}</td>
               <td>{visita.departamento}</td>
               <td>{visita.detalle}</td>
               <td className="acciones">
-                <button onClick={() => handleEditar(visita.id_v)}>Editar</button>
-                <button className="borrar" onClick={() => handleBorrar(visita.id_v)}>Borrar</button>
-                <button onClick={() => handleDetalle(visita.id_v)}>Detalle</button>
+                <button onClick={() => handleBorrar(visita.id)}>Borrar</button>
               </td>
             </tr>
           ))}

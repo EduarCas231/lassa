@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Visitas from './pages/Visitas';
 import Escaner from './pages/Escaner';
 import Registro from './pages/Registros'
-// Componente Navbar
+
 const Navbar = () => {
   return (
     <nav>
@@ -23,22 +23,22 @@ const Navbar = () => {
   );
 };
 
-// Componente Home (contenido principal)
+
 const Home = () => {
   return (
     <div className="app-container">
-      {/* Logo */}
+      
       <div className="logo-container">
         <img src="/labsa.png" alt="Logo de Labsa" className="logo" aria-label="Logo de Labsa" />
       </div>
 
-      {/* Título y descripción */}
+      
       <div className="title-container">
         <h1 className="main-title">LABORATORIOS Y SUMINISTROS AMBIENTALES E INDUSTRIALES</h1>
         <p className="description">Laboratorio ACREDITADO por la EMA y APROBADO por CONAGUA, STPS y PROFEPA.</p>
       </div>
 
-      {/* Sección Historia */}
+      
       <section className="timeline-section">
         <div className="container">
           <div className="section-header">
@@ -66,7 +66,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Sección "¿Quiénes Somos?" */}
+      
       <section className="header6 mbr-fullscreen mbr-parallax-background" id="header6-1e">
         <div className="mbr-overlay" style={{ opacity: 0.7, backgroundColor: "rgb(68, 121, 217)" }}></div>
         <div className="align-center container-fluid">
@@ -85,11 +85,11 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Sección de Misión, Visión y Valores */}
+      
       <section className="clients2" id="clients2-x">
         <div className="container-fluid">
           <div className="row justify-content-center">
-            {/* Misión */}
+            
             <div className="card col-12 col-md-6 col-lg-4">
               <div className="card-wrapper">
                 <div className="card-box align-center">
@@ -101,7 +101,7 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Visión */}
+            
             <div className="card col-12 col-md-6 col-lg-4">
               <div className="card-wrapper">
                 <div className="card-box align-center">
@@ -113,7 +113,7 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Valores */}
+            
             <div className="card col-12 col-md-6 col-lg-4">
               <div className="card-wrapper">
                 <div className="card-box align-center">
@@ -131,13 +131,13 @@ const Home = () => {
   );
 };
 
-// Componente App
+
 function App() {
   return (
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} /> {/* Ruta principal */}
+        <Route path="/" element={<Home />} /> 
         <Route path="/Visitas" element={<Visitas />} />
         <Route path="/Escaner" element={<Escaner />} />
         <Route path="/Registro" element={<Registro />} /> 

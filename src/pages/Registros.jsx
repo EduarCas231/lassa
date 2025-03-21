@@ -5,19 +5,17 @@ import Swal from 'sweetalert2';
 const Registros = () => {
   const navigate = useNavigate();
 
-  // Estado para almacenar los datos del formulario
   const [formData, setFormData] = useState({
     nombre: '',
     apellidoPaterno: '',
     apellidoMaterno: '',
-    lugar: 'LABSA S.A. DE C.V.', // Valor fijo para el lugar
+    lugar: 'LABSA S.A. DE C.V.',
     hora: '',
     dia: '',
     departamento: '',
     detalle: '',
   });
 
-  // Opciones para el campo "departamento"
   const departamentos = [
     'Dirección',
     'Tisc',
@@ -29,7 +27,6 @@ const Registros = () => {
     'Cromatografía',
   ];
 
-  // Maneja los cambios en los campos del formulario
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -38,37 +35,45 @@ const Registros = () => {
     });
   };
 
-  // Maneja el envío del formulario
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Evita que el formulario se envíe automáticamente
+    e.preventDefault();
+
+    // Validación básica
+    if (!formData.nombre || !formData.apellidoPaterno || !formData.hora || !formData.dia || !formData.departamento) {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Por favor, completa todos los campos obligatorios.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+      });
+      return;
+    }
 
     try {
-      // Envía los datos a la API
-      const response = await fetch('http://3.12.74.141/visitas', {
+      const response = await fetch('http://3.138.178.65:8000/visitas', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
-        mode: 'cors', // Asegurar que se permite desde otros orígenes
-        credentials: 'same-origin' // Si la API necesita autenticación
-      }).catch(error => console.error("Error en la petición:", error));
-      
+        mode: 'cors',
+      });
 
-      // Si la visita se registra correctamente, muestra la alerta de SweetAlert2
+      if (!response.ok) {
+        throw new Error('Error en la respuesta del servidor');
+      }
+
       Swal.fire({
         title: 'Visita Registrada',
         icon: 'success',
         confirmButtonText: 'Aceptar',
       }).then((result) => {
-        
         if (result.isConfirmed) {
           navigate('/Visitas');
         }
       });
     } catch (error) {
       console.error('Error:', error);
-      // Muestra una alerta de error si algo sale mal
       Swal.fire({
         title: 'Error!',
         text: 'Hubo un error al registrar la visita. Por favor, intenta de nuevo.',
@@ -121,7 +126,7 @@ const Registros = () => {
             name="lugar"
             value={formData.lugar}
             onChange={handleChange}
-            readOnly // Hace que el campo sea de solo lectura
+            readOnly
           />
         </div>
 
