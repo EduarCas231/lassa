@@ -49,6 +49,8 @@ const Registros = () => {
       return;
     }
 
+    console.log('Datos a enviar:', formData);  // Depuración
+
     try {
       const response = await fetch('https://3.138.178.65/visitas', {
         method: 'POST',
@@ -58,6 +60,8 @@ const Registros = () => {
         body: JSON.stringify(formData),
         mode: 'cors',
       });
+
+      console.log('Respuesta del servidor:', response);  // Depuración
 
       if (!response.ok) {
         throw new Error('Error en la respuesta del servidor');
