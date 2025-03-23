@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
 
 const Visita = () => {
   const [visitas, setVisitas] = useState([]);
@@ -17,7 +16,7 @@ const Visita = () => {
 
   const fetchVisitas = async () => {
     try {
-      const response = await fetch('https://3.23.111.247/visitas');
+      const response = await fetch('https://3.19.221.78/visitas');
       if (!response.ok) {
         throw new Error('Error al obtener los datos');
       }
@@ -36,32 +35,6 @@ const Visita = () => {
 
   const handleRegistroVisita = () => {
     navigate('/Registro');
-  };
-
-  const handleBorrar = async (id) => {
-    try {
-      const response = await fetch(`https://3.23.111.247/visitas/${id}`, {
-        method: 'DELETE',
-      });
-
-      if (!response.ok) {
-        throw new Error('Error al eliminar la visita');
-      }
-
-      setVisitas(visitas.filter((visita) => visita.id !== id));
-      Swal.fire({
-        title: 'Visita eliminada con éxito',
-        icon: 'success',
-        confirmButtonText: 'Aceptar',
-      });
-    } catch (error) {
-      console.error('Error:', error);
-      Swal.fire({
-        text: 'No se pudo eliminar la visita',
-        icon: 'error',
-        confirmButtonText: 'Aceptar',
-      });
-    }
   };
 
   const handleFiltroChange = (e) => {
@@ -145,7 +118,6 @@ const Visita = () => {
             <th>Día</th>
             <th>Departamento</th>
             <th>Detalle</th>
-            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -159,9 +131,6 @@ const Visita = () => {
               <td>{visita.dia}</td>
               <td>{visita.departamento}</td>
               <td>{visita.detalle}</td>
-              <td className="acciones">
-                <button onClick={() => handleBorrar(visita.id)}>Borrar</button>
-              </td>
             </tr>
           ))}
         </tbody>
