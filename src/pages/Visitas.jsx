@@ -17,7 +17,7 @@ const Visita = () => {
 
   const fetchVisitas = async () => {
     try {
-      const response = await fetch('http://3.23.111.247/visitas');
+      const response = await fetch('https://3.23.111.247/visitas');
       if (!response.ok) {
         throw new Error('Error al obtener los datos');
       }
@@ -40,7 +40,7 @@ const Visita = () => {
 
   const handleBorrar = async (id) => {
     try {
-      const response = await fetch(`http://3.23.111.247/visitas/${id}`, {
+      const response = await fetch(`https://3.23.111.247/visitas/${id}`, {
         method: 'DELETE',
       });
 
